@@ -33,6 +33,3 @@ export default function App() {
   );
 }
 
-const Father = styled.div`
-  background-color: red;
-`;
