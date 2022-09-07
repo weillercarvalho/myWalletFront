@@ -8,13 +8,13 @@ const Global = createGlobalStyle`
         --color-negative-red: #C70000;
         --color-placeholder: #000000;
         --color-letters: #ffffff;
+        --color-button: #a328d6;
     }
 
     body {
         width: 100vw;
         height: 100vh;
         font-family: 'Raleway', sans-serif;
-        /* font-family: 'Saira Stencil One', cursive; */
         background-color: var(--color-background);
     }
 
