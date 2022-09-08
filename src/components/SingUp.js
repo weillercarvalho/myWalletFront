@@ -5,59 +5,87 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "./Context";
 import { singup } from "../services/Services";
 
-
 export default function SingUp() {
-  const [password,setPassword] = React.useState('');
-  const [confirmpassword,setConfirmpassword] = React.useState('');
-  const [name,setName] = React.useState('');
-  const [email,setEmail] = React.useState('');
-  const {tokens,setTokens} = React.useContext(UserContext);
+  const [password, setPassword] = React.useState("");
+  const [confirmpassword, setConfirmpassword] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const { tokens, setTokens } = React.useContext(UserContext);
   const navigate = useNavigate();
 
   React.useEffect(() => {
     if (tokens) {
-      navigate(`/principal`)
+      navigate(`/principal`);
     }
-  })
+  },[]);
 
   function handleForm(e) {
     e.preventDefault();
     if (password !== confirmpassword) {
-      return alert(`Senhas não coincidem.`)
+      return alert(`Senhas não coincidem.`);
     }
     const body = {
       name: name,
       email: email,
-      password: password
-    }
-    singup(body).then(r => {
-      console.log(r)
-      setPassword('');
-      setConfirmpassword('');
-      setName('');
-      setEmail('');
-      navigate(`/`)
-    }).catch(r => {
-      console.log(`Deu nao.`)
-      setPassword('');
-      setConfirmpassword('');
-      setName('');
-      setEmail('');
-    })
-
+      password: password,
+    };
+    singup(body)
+      .then((r) => {
+        console.log(r);
+        setPassword("");
+        setConfirmpassword("");
+        setName("");
+        setEmail("");
+        navigate(`/`);
+      })
+      .catch((r) => {
+        console.log(r);
+        setPassword("");
+        setConfirmpassword("");
+        setName("");
+        setEmail("");
+      });
   }
   return (
     <>
       <Father>
         <img src={wallet} alt="" />
         <form onSubmit={handleForm}>
-          <input type="text" placeholder="Nome" value={name} onChange={(e) => setName(e.target.value)} name="nome" required></input>
-          <input type="email" placeholder="E-mail" value={email} onChange={(e) => setEmail(e.target.value)} name="email" required></input>
-          <input type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} name="senha" required></input>
-          <input type="password" placeholder="Confirme a senha" value={confirmpassword} onChange={(e) => setConfirmpassword(e.target.value)} name="confirmeasenha" required></input>
+          <input
+            type="text"
+            placeholder="Nome"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            name="nome"
+            required
+          ></input>
+          <input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            required
+          ></input>
+          <input
+            type="password"
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            name="senha"
+            required
+          ></input>
+          <input
+            type="password"
+            placeholder="Confirme a senha"
+            value={confirmpassword}
+            onChange={(e) => setConfirmpassword(e.target.value)}
+            name="confirmeasenha"
+            required
+          ></input>
           <button>Cadastrar</button>
         </form>
-        <p onClick={() => navigate('/')}>Já tem uma conta? Entre agora!</p>
+        <p onClick={() => navigate("/")}>Já tem uma conta? Entre agora!</p>
       </Father>
     </>
   );
@@ -110,7 +138,7 @@ const Father = styled.div`
     font-weight: 700;
     font-size: 15px;
     margin: 36px auto auto auto;
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
   }

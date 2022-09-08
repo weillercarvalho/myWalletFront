@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import SingIn from "./SingIn";
 import SingUp from "./SingUp";
 import { Reset } from "styled-reset";
@@ -24,12 +23,18 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SingIn />} />
-            <Route path="/cadastro" element={<SingUp />}/>
-                <Route path="/principal" element={<PrivatePage><Main /></PrivatePage>}/>
+            <Route path="/cadastro" element={<SingUp />} />
+            <Route
+              path="/principal"
+              element={
+                <PrivatePage>
+                  <Main />
+                </PrivatePage>
+              }
+            />
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
     </>
   );
 }
-

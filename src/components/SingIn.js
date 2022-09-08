@@ -3,22 +3,60 @@ import styled from "styled-components";
 import wallet from "../assets/images/MyWallet.png";
 import { useNavigate } from "react-router-dom";
 import { singin } from "../services/Services";
+import { UserContext } from "./Context";
 
 export default function SingIn() {
+  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const navigate = useNavigate();
+  const { tokens, setTokens } = React.useContext(UserContext);
+
+  React.useEffect(() => {
+    if (tokens) {
+      navigate(`/principal`);
+    }
+  }, []);
+
   function handleForm(e) {
     e.preventDefault();
+    const body = {
+      email: email,
+      password: password,
+    };
+    singin(body)
+      .then((r) => {
+        console.log(r);
+        localStorage.setItem("wallet", JSON.stringify({ token: r.data }));
+        navigate(`/principal`);
+      })
+      .catch((r) => {
+        console.log(r);
+      });
   }
   return (
     <>
       <Father>
         <img src={wallet} alt="" />
         <form onSubmit={handleForm}>
-          <input type="email" placeholder="E-mail" name="email"></input>
-          <input type="password" placeholder="Senha" name="senha"></input>
+          <input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            required
+          ></input>
+          <input
+            type="password"
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            name="senha"
+            required
+          ></input>
           <button>Entrar</button>
         </form>
-        <p onClick={() => navigate('/cadastro')}>Primeira vez? Cadastre-se!</p>
+        <p onClick={() => navigate("/cadastro")}>Primeira vez? Cadastre-se!</p>
       </Father>
     </>
   );
@@ -71,7 +109,7 @@ const Father = styled.div`
     font-weight: 700;
     font-size: 15px;
     margin: 36px auto auto auto;
-    &:hover{
+    &:hover {
       cursor: pointer;
     }
   }
