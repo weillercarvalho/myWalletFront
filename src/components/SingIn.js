@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import wallet from "../assets/images/MyWallet.png";
+import { useNavigate } from "react-router-dom";
 export default function SingIn() {
+  const navigate = useNavigate();
   function handleForm(e) {
     e.preventDefault();
   }
@@ -14,7 +16,7 @@ export default function SingIn() {
           <input type="password" placeholder="Senha" name="senha"></input>
           <button>Entrar</button>
         </form>
-        <p>Primeira vez? Cadastre-se!</p>
+        <p onClick={() => navigate('/cadastro')}>Primeira vez? Cadastre-se!</p>
       </Father>
     </>
   );
@@ -64,5 +66,8 @@ const Father = styled.div`
     font-weight: 700;
     font-size: 15px;
     margin: 36px auto auto auto;
+    &:hover{
+      cursor: pointer;
+    }
   }
 `;

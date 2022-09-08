@@ -24,8 +24,8 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SingIn />} />
-            {/* <Route path="/cadastro" element={<SingUp />}/>
-                <Route path="/principal" element={<PrivatePage><Main /></PrivatePage>}/> */}
+            <Route path="/cadastro" element={<SingUp />}/>
+                <Route path="/principal" element={<PrivatePage><Main /></PrivatePage>}/>
           </Routes>
         </BrowserRouter>
       </UserContext.Provider>
