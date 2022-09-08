@@ -3,13 +3,14 @@ import styled from "styled-components";
 import exit from "../assets/images/Vector.png";
 import plus from "../assets/images/mais2.svg"
 import minus from "../assets/images/menos2.svg"
-
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function Main() {
+  const navigate = useNavigate();
+
   return (
-    <>
       <Father>
         <header>
           <h1>Ola, Fulano</h1>
@@ -17,17 +18,16 @@ export default function Main() {
         </header>
         <nav>Não há registros de entrada ou saída</nav>
         <footer>
-          <section>
+          <section onClick={() => navigate(`/mais`)}>
             <div><img src={plus} alt="Plus the value." /></div>
             <p>Nova entrada</p>
           </section>
-          <section>
+          <section onClick={() => navigate(`/menos`)}>
             <div><img src={minus} alt="Remove the value." /></div>
             <p>Nova saída</p>
           </section>
         </footer>
       </Father>
-    </>
   );
 }
 
@@ -66,7 +66,7 @@ const Father = styled.div`
     margin: 13px auto 16px auto;
   }
   section {
-    width: 47%;
+    width: 50%;
     height: 114px;
     background-color: var(--color-button);
     color: var(--color-letters);

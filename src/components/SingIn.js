@@ -80,6 +80,7 @@ const Father = styled.div`
       color: var(--color-placeholder);
       font-weight: 400;
       font-size: 20px;
+      opacity:1;
     }
   }
   form {

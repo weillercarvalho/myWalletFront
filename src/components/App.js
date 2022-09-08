@@ -7,6 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Global } from "./Global";
 import Main from "./Main";
 import PrivatePage from "../services/PrivatePage";
+import Plus from "./PlusValue";
+import Minus from "./MinusValue";
+
 
 export default function App() {
   const [tokens, setTokens] = React.useState(false);
@@ -29,6 +32,22 @@ export default function App() {
               element={
                 <PrivatePage>
                   <Main />
+                </PrivatePage>
+              }
+            />
+            <Route
+              path="/mais"
+              element={
+                <PrivatePage>
+                  <Plus />
+                </PrivatePage>
+              }
+            />
+            <Route
+              path="/menos"
+              element={
+                <PrivatePage>
+                  <Minus />
                 </PrivatePage>
               }
             />
