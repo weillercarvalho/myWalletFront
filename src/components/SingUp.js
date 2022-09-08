@@ -3,6 +3,8 @@ import styled from "styled-components";
 import wallet from "../assets/images/MyWallet.png";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./Context";
+import { singup } from "../services/Services";
+
 
 export default function SingUp() {
   const [password,setPassword] = React.useState('');
@@ -14,17 +16,35 @@ export default function SingUp() {
 
   React.useEffect(() => {
     if (tokens) {
-      setTokens(JSON.parse(localStorage.getItem(`mywallet`)));
       navigate(`/principal`)
     }
   })
-  
+
   function handleForm(e) {
     e.preventDefault();
     if (password !== confirmpassword) {
       return alert(`Senhas não coincidem.`)
     }
-    console.log(tokens)
+    const body = {
+      name: name,
+      email: email,
+      password: password
+    }
+    singup(body).then(r => {
+      console.log(r)
+      setPassword('');
+      setConfirmpassword('');
+      setName('');
+      setEmail('');
+      navigate(`/`)
+    }).catch(r => {
+      console.log(`Deu nao.`)
+      setPassword('');
+      setConfirmpassword('');
+      setName('');
+      setEmail('');
+    })
+
   }
   return (
     <>
@@ -80,6 +100,9 @@ const Father = styled.div`
     font-weight: 700;
     font-size: 20px;
     border: none;
+    &:hover {
+      cursor: pointer;
+    }
   }
   p {
     color: var(--color-letters);

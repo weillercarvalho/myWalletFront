@@ -10,10 +10,10 @@ import Main from "./Main";
 import PrivatePage from "../services/PrivatePage";
 
 export default function App() {
-  const [tokens, setTokens] = React.useState("");
-  const auth = JSON.parse(localStorage.getItem("trackit"));
-  if (auth && tokens === "") {
-    setTokens(JSON.parse(localStorage.getItem("trackit")));
+  const [tokens, setTokens] = React.useState(false);
+  const auth = JSON.parse(localStorage.getItem(`wallet`));
+  if (auth && tokens === false) {
+    setTokens(JSON.parse(localStorage.getItem(`wallet`)));
   }
 
   return (
