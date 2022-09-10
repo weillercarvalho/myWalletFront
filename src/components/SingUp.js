@@ -10,7 +10,7 @@ export default function SingUp() {
   const [confirmpassword, setConfirmpassword] = React.useState("");
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
-  const { tokens, setTokens } = React.useContext(UserContext);
+  const { tokens } = React.useContext(UserContext);
   const navigate = useNavigate();
 
   React.useEffect(() => {
@@ -23,6 +23,9 @@ export default function SingUp() {
     e.preventDefault();
     if (password !== confirmpassword) {
       return alert(`Senhas não coincidem.`);
+    }
+    else if (password.length < 6) {
+      return alert(`Tamanho mínimo da senha são 6 caracteres.`);
     }
     const body = {
       name: name,
@@ -39,7 +42,7 @@ export default function SingUp() {
         navigate(`/`);
       })
       .catch((r) => {
-        console.log(r);
+        console.log(r.message);
         setPassword("");
         setConfirmpassword("");
         setName("");

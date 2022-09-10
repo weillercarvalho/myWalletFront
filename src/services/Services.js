@@ -3,6 +3,16 @@ import axios from "axios";
 
 const BASE_URL = `http://localhost:5000`;
 
+function createHeaders() {
+    const auth = JSON.parse(localStorage.getItem('wallet'));
+    const config = {
+        headers: {
+            Authorization: `Bearer ${auth.token}`
+        }
+    }
+    return config;
+}
+
 function singin(body) {
     const promisse = axios.post(`${BASE_URL}/singin`, body);
     return promisse;
@@ -24,8 +34,9 @@ function removevalue(body) {
 }
 
 function result(body) {
-    const promisse = axios.get(`${BASE_URL}/result`, body);
+    const header = createHeaders();
+    const promisse = axios.get(`${BASE_URL}/result`, body, header);
     return promisse;
 }
 
-export {singin, singup, addvalue, removevalue}
+export {singin, singup, addvalue, removevalue, result}

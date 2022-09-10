@@ -13,6 +13,10 @@ import Minus from "./MinusValue";
 
 export default function App() {
   const [tokens, setTokens] = React.useState(false);
+  const [plus,setPlus] = React.useState('');
+  const [minus,setMinus] = React.useState('');
+  const [description,setDescription] = React.useState('');
+
   const auth = JSON.parse(localStorage.getItem(`wallet`));
   if (auth && tokens === false) {
     setTokens(JSON.parse(localStorage.getItem(`wallet`)));
@@ -22,7 +26,7 @@ export default function App() {
     <>
       <Reset />
       <Global />
-      <UserContext.Provider value={{ tokens, setTokens }}>
+      <UserContext.Provider value={{ tokens, setTokens, plus, setPlus, minus, setMinus, description, setDescription}}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SingIn />} />

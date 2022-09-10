@@ -4,16 +4,20 @@ import exit from "../assets/images/Vector.png";
 import plus from "../assets/images/mais2.svg"
 import minus from "../assets/images/menos2.svg"
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "./Context";
 
 
 
 export default function Main() {
   const navigate = useNavigate();
-
+  const auth = JSON.parse(localStorage.getItem(`wallet`));
+  React.useEffect(() => {
+    
+  })
   return (
       <Father>
         <header>
-          <h1>Ola, Fulano</h1>
+          <h1>Ola, {auth.name} </h1>
           <img src={exit} alt="Exit from the program." />
         </header>
         <nav>Não há registros de entrada ou saída</nav>

@@ -9,7 +9,7 @@ export default function SingIn() {
   const [password, setPassword] = React.useState("");
   const [email, setEmail] = React.useState("");
   const navigate = useNavigate();
-  const { tokens, setTokens } = React.useContext(UserContext);
+  const { tokens } = React.useContext(UserContext);
 
   React.useEffect(() => {
     if (tokens) {
@@ -26,7 +26,7 @@ export default function SingIn() {
     singin(body)
       .then((r) => {
         console.log(r);
-        localStorage.setItem("wallet", JSON.stringify({ token: r.data }));
+        localStorage.setItem("wallet", JSON.stringify({ token: r.data.token, name: r.data.name }));
         navigate(`/principal`);
       })
       .catch((r) => {

@@ -9,6 +9,9 @@ export default function PrivatePage({ children }) {
     return <>{children}</>;
   } else {
     localStorage.clear(`wallet`);
-    navigate(`/`);
+    React.useEffect(() => {
+      navigate(`/`);
+    },[])
+    
   }
 }
