@@ -22,13 +22,14 @@ export default function Plus () {
       description: description,
       type: "plus"
     }
-    addvalue(body).then((r) => {
+      addvalue(body).then((r) => {
       console.log(r)
       setPlus('')
       setDescription('');
       setCount(!count);
       navigate(`/principal`);
     }).catch((r) => {
+      console.log(r)
       setPlus('')
       setDescription('');
     })
