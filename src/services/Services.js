@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 
 const BASE_URL = `http://localhost:5000`;
@@ -33,9 +32,9 @@ function removevalue(body) {
     return promisse;
 }
 
-function result(body) {
+function result() {
     const header = createHeaders();
-    const promisse = axios.get(`${BASE_URL}/result`, body, header);
+    const promisse = axios.get(`${BASE_URL}/result`, header);
     return promisse;
 }
 

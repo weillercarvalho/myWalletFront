@@ -16,6 +16,7 @@ export default function App() {
   const [plus,setPlus] = React.useState('');
   const [minus,setMinus] = React.useState('');
   const [description,setDescription] = React.useState('');
+  const [count,setCount] = React.useState(false);
 
   const auth = JSON.parse(localStorage.getItem(`wallet`));
   if (auth && tokens === false) {
@@ -26,7 +27,7 @@ export default function App() {
     <>
       <Reset />
       <Global />
-      <UserContext.Provider value={{ tokens, setTokens, plus, setPlus, minus, setMinus, description, setDescription}}>
+      <UserContext.Provider value={{ tokens, setTokens, plus, setPlus, minus, setMinus, description, setDescription, count, setCount}}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SingIn />} />

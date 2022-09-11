@@ -4,8 +4,8 @@ import { Father } from "./common/Father";
 import { UserContext } from "./Context";
 import { addvalue } from "../services/Services";
 
-export default function Minus () {
-  const {plus, setPlus, description, setDescription} = React.useContext(UserContext);
+export default function Plus () {
+  const {plus, setPlus, description, setDescription, count, setCount} = React.useContext(UserContext);
   const navigate = useNavigate();
 
 
@@ -17,16 +17,16 @@ export default function Minus () {
     const body = {
       value: cleanNumber,
       description: description,
-      type: `plus`
+      type: "plus"
     }
     addvalue(body).then((r) => {
-      console.log(r);
-      setPlus('');
+      console.log(r)
+      setPlus('')
       setDescription('');
+      setCount(!count);
       navigate(`/principal`);
     }).catch((r) => {
-      console.log(r);
-      setPlus('');
+      setPlus('')
       setDescription('');
     })
 

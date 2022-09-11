@@ -5,7 +5,7 @@ import { UserContext } from "./Context";
 import { removevalue } from "../services/Services";
 
 export default function Minus () {
-  const {minus, setMinus, description, setDescription} = React.useContext(UserContext);
+  const {minus, setMinus, description, setDescription,count, setCount} = React.useContext(UserContext);
   const navigate = useNavigate();
 
 
@@ -17,15 +17,14 @@ export default function Minus () {
     const body = {
       value: cleanNumber,
       description: description,
-      type: `minus`
+      type: "minus"
     }
     removevalue(body).then((r) => {
-      console.log(r);
       setMinus('');
       setDescription('');
+      setCount(!count)
       navigate(`/principal`);
     }).catch((r) => {
-      console.log(r);
       setMinus('');
       setDescription('');
     })

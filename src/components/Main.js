@@ -5,20 +5,34 @@ import plus from "../assets/images/mais2.svg"
 import minus from "../assets/images/menos2.svg"
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./Context";
-
-
+import { result } from "../services/Services";
 
 export default function Main() {
+  const [layout,setLayout] = React.useState(0)
+  const {count} = React.useContext(UserContext);
   const navigate = useNavigate();
   const auth = JSON.parse(localStorage.getItem(`wallet`));
+
   React.useEffect(() => {
-    
-  })
-  return (
+    result().then((r) => {
+      console.log(r)
+      setLayout(r.data.length)
+    }).catch((r) => {
+      console.log(r)
+    })
+  },[count])
+
+  const exitingAccount = () => {
+    localStorage.clear();
+    navigate(`/`);
+  }
+
+  if (layout === 0) {
+    return (
       <Father>
         <header>
-          <h1>Ola, {auth.name} </h1>
-          <img src={exit} alt="Exit from the program." />
+          <h1>Olá, {auth.name} </h1>
+          <img src={exit} onClick={() => exitingAccount()} alt="Exit from the program." />
         </header>
         <nav>Não há registros de entrada ou saída</nav>
         <footer>
@@ -32,7 +46,28 @@ export default function Main() {
           </section>
         </footer>
       </Father>
-  );
+  )
+  } else {
+    return (
+      <Father>
+        <header>
+          <h1>Olá, {auth.name} </h1>
+          <img src={exit} onClick={() => exitingAccount()} alt="Exit from the program." />
+        </header>
+        <nav>Mudar aqui.</nav>
+        <footer>
+          <section onClick={() => navigate(`/mais`)}>
+            <div><img src={plus} alt="Plus the value." /></div>
+            <p>Nova entrada</p>
+          </section>
+          <section onClick={() => navigate(`/menos`)}>
+            <div><img src={minus} alt="Remove the value." /></div>
+            <p>Nova saída</p>
+          </section>
+        </footer>
+      </Father>
+  )
+  }
 }
 
 const Father = styled.div`
