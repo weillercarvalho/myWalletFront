@@ -6,9 +6,14 @@ import minus from "../assets/images/menos2.svg"
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "./Context";
 import { result } from "../services/Services";
+import dayjs from "dayjs";
+
 
 export default function Main() {
+  const days = dayjs().format('DD/MM')
+  console.log(days)
   const [layout,setLayout] = React.useState(0)
+  const [info,setInfo] = React.useState('');
   const {count} = React.useContext(UserContext);
   const navigate = useNavigate();
   const auth = JSON.parse(localStorage.getItem(`wallet`));
@@ -17,10 +22,12 @@ export default function Main() {
     result().then((r) => {
       console.log(r)
       setLayout(r.data.length)
+      setInfo(r.data)
+      console.log(info)
     }).catch((r) => {
       console.log(r)
     })
-  },[count])
+  },[count, layout])
 
   const exitingAccount = () => {
     localStorage.clear();
@@ -54,7 +61,9 @@ export default function Main() {
           <h1>Olá, {auth.name} </h1>
           <img src={exit} onClick={() => exitingAccount()} alt="Exit from the program." />
         </header>
-        <nav>Mudar aqui.</nav>
+        <nav>
+          {info.map((value,index) => (<Values key={index} description={value.description} days={days} value={value.value} type={value.type}/>))}
+        </nav>
         <footer>
           <section onClick={() => navigate(`/mais`)}>
             <div><img src={plus} alt="Plus the value." /></div>
@@ -67,6 +76,19 @@ export default function Main() {
         </footer>
       </Father>
   )
+  }
+}
+
+function Values({description, value, type, days}) {
+  if (type === "plus") {
+    return (
+      <span>{days} {description}</span>
+    )
+  }
+  else if (type === "minus") {
+    return (
+      <span>{days} {description}</span>
+    )
   }
 }
 
@@ -133,5 +155,8 @@ const Father = styled.div`
     margin: 10px;
     width:25px;
     height:25px;
+  }
+  span {
+
   }
 `;

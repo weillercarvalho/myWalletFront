@@ -15,7 +15,7 @@ export default function SingIn() {
     if (tokens) {
       navigate(`/principal`);
     }
-  }, []);
+  },[]);
 
   function handleForm(e) {
     e.preventDefault();
