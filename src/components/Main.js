@@ -11,7 +11,6 @@ import dayjs from "dayjs";
 
 export default function Main() {
   const days = dayjs().format('DD/MM')
-  console.log(days)
   const [layout,setLayout] = React.useState(0)
   const [info,setInfo] = React.useState('');
   const {count} = React.useContext(UserContext);
@@ -20,18 +19,18 @@ export default function Main() {
 
   React.useEffect(() => {
     result().then((r) => {
-      console.log(r)
       setLayout(r.data.length)
       setInfo(r.data)
-      console.log(info)
     }).catch((r) => {
       console.log(r)
     })
   },[count, layout])
 
+ 
+
   const exitingAccount = () => {
-    localStorage.clear();
     navigate(`/`);
+    localStorage.clear();
   }
 
   if (layout === 0) {
@@ -63,6 +62,7 @@ export default function Main() {
         </header>
         <nav>
           {info.map((value,index) => (<Values key={index} description={value.description} days={days} value={value.value} type={value.type}/>))}
+          <Total info={info} />
         </nav>
         <footer>
           <section onClick={() => navigate(`/mais`)}>
@@ -82,12 +82,34 @@ export default function Main() {
 function Values({description, value, type, days}) {
   if (type === "plus") {
     return (
-      <span>{days} {description}</span>
+      <span><SpanTime>{days}</SpanTime> <SpanDescription>{description}</SpanDescription> <SpanGreen>{value}</SpanGreen></span>
     )
   }
   else if (type === "minus") {
     return (
-      <span>{days} {description}</span>
+      <span><SpanTime>{days}</SpanTime> <SpanDescription>{description}</SpanDescription> <SpanRed>{value}</SpanRed></span>
+    )
+  }
+}
+
+function Total({info}) {
+  const numbers = info.map((value) => {
+    if (value.type === "minus") {
+      return value.value * (-1);
+    }else if (value.type === "plus") {
+      return Number(value.value);
+    }
+  })
+  const finalValue = numbers.reduce((acum,val) => acum += val);
+  const cleanfinalValue = Math.abs(finalValue).toFixed(2);
+
+  if (finalValue < 0) {
+    return(
+      <span><SpanFinal>Saldo</SpanFinal><SpanRedFinal>{cleanfinalValue}</SpanRedFinal></span>
+    )
+  } else if (finalValue >= 0) {
+    return(
+      <span><SpanFinal>SALDO</SpanFinal><SpanGreenFinal>{cleanfinalValue}</SpanGreenFinal></span>
     )
   }
 }
@@ -118,8 +140,9 @@ const Father = styled.div`
     font-family: "Raleway", sans-serif;
     font-weight: 400;
     font-size: 16px;
-    justify-content: center;
     align-items: center;
+    position: relative;
+    overflow-y:scroll;
   }
   footer {
     display: flex;
@@ -157,6 +180,71 @@ const Father = styled.div`
     height:25px;
   }
   span {
-
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    margin-top:10px;
+    display:flex;
+    
   }
-`;
+`
+const SpanGreen = styled.span`
+  color: var(--color-positive-green);
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  text-align: justify;
+  position: absolute;
+  right: 10px;
+`
+const SpanRed = styled.span`
+  color: var(--color-negative-red);
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  position: absolute;
+  right: 10px;
+`
+const SpanTime = styled.span`
+  color: var(--color-time);
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  position: absolute;
+  left: 10px;
+`
+const SpanDescription = styled.span`
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    margin-top:10px;
+    display: flex;
+`
+const SpanFinal = styled.span`
+    font-family: "Raleway", sans-serif;
+    font-weight: 700 !important;
+    font-size: 17px !important;
+    margin-top:10px;
+    display: flex;
+
+    @media (max-width: 375px) {
+      margin-right: 265px;
+    }
+`
+const SpanRedFinal = styled.span`
+  color: var(--color-negative-red);
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  position: absolute;
+  right: 10px;
+`
+const SpanGreenFinal = styled.span`
+  color: var(--color-positive-green);
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  text-align: justify;
+  position: absolute;
+  right: 10px;
+`

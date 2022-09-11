@@ -11,6 +11,9 @@ export default function Plus () {
 
   function handleForm(e) {
     e.preventDefault();
+    if (description.length > 25) {
+      return alert(`Tamanho máximo da descrição de 25 caracteres.`)
+    }
     const replaceCommon = plus.replace(`,`,`.`)
     const bruteNumber = Number(replaceCommon);
     const cleanNumber = bruteNumber.toFixed(2);

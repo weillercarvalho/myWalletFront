@@ -6,6 +6,7 @@ const Global = createGlobalStyle`
         --color-background: #8c11be;
         --color-positive-green: #03AC00;
         --color-negative-red: #C70000;
+        --color-time: #C6C6C6;
         --color-placeholder: #000000;
         --color-letters: #ffffff;
         --color-button: #a328d6;
