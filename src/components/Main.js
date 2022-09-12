@@ -19,12 +19,13 @@ export default function Main() {
 
   React.useEffect(() => {
     result().then((r) => {
+      console.log(r)
       setLayout(r.data.length)
       setInfo(r.data)
     }).catch((r) => {
       console.log(r)
     })
-  },[count, layout])
+  },[count])
 
  
 
